@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+
+{%block head%}
+<title>Register</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{%endblock%}
+
+
+{%block content%} 
+
+<body>
+    <div class="centered-a box-mid">
+        <form action="/register" method="POST">
+            <input type="text" name="username" id="username" placeholder="username">
+            <input type="password" name="password" id="password" placeholder="password">
+            <input type="number" name="student_id" id="student_id" placeholder="student id">
+            <input type="email" name="email" id="email" placeholder="email">
+            <input type="text" name="real_name" id="real_name" placeholder="real name">
+            <input type="submit" value="Register">
+            <a href="login" class="small-redirect">Already have an account?</a>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

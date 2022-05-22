@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+
+{%block head%}
+<title>Home</title>
+{%endblock%}
+
+
+{%block content%} 
+
+<body>
+    <div style="width: 80%; display: flex; gap: 80px;">
+        <div class="home-body left">
+            <h1>Welcome to the home page!</h1>
+            <p>
+                This is the home page.
+            </p>
+        </div>
+
+        <div style="display: flex; gap: 80px; flex-direction: column; flex-grow: 1;">
+            <div class="home-body">
+                <h1>Welcome to the home page!</h1>
+                <p>
+                    This is the home page.
+                </p>
+            </div>
+            <div class="home-body">
+                <h1>Welcome to the home page!</h1>
+                <p>
+                    This is the home page.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
