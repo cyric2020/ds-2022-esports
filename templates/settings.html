@@ -25,6 +25,7 @@
         <textarea name="bio" id="bio" cols="30" rows="2" placeholder="bio"></textarea>
         <button id="change_password">Change Password</button>
         <button>Save</button>
+        <button class="red">Delete Account</button>
     </div>
 
     <div class="overlay" id="password_overlay">
@@ -125,6 +126,10 @@ img{
     background-color: transparent;
     border: 4px solid var(--primary);
     padding: 0.3rem;
+}
+
+button.red{
+    background-color: var(--red) !important;
 }
 </style>
 {%endblock%}

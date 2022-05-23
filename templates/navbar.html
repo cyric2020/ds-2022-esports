@@ -9,13 +9,19 @@
         <a href="/login" class="right full" id="login">Login</a>
         <div id="logout">
             <div class="notifications">
-                <span class="material-symbols-rounded icon">notifications</span>
+                <span class="material-symbols-rounded icon" id="not-icon">notifications</span>
                 <span class="not-count">5</span>
             </div>
-            <span class="material-symbols-rounded icon">settings</span>
+            <a href="settings">
+                <span class="material-symbols-rounded icon">settings</span>
+            </a>
             <a href="/logout" class="right outline">Logout</a>
         </div>
     </div>
+</div>
+
+<div class="notificaiton-center" id="not-center">
+e
 </div>
 
 <style>
@@ -97,6 +103,13 @@
     font-weight: 600;
     width: 17px;
     text-align: center;
+}
+
+.notificaiton-center{
+    position: absolute;
+    background-color: var(--light);
+    box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.25);
+    padding: 1rem;
 }
 </style>
 

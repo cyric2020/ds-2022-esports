@@ -7,6 +7,8 @@ import passUtil
 
 passutil = passUtil.passUtil('sha512')
 
+current_tokens = []
+
 db = 'main.db'
 
 app = flask.Flask(__name__)
@@ -24,6 +26,8 @@ def verify(request):
         decoded_jwt = jwt.decode(jwt_token, 'secret', algorithms=['HS256'])
         if decoded_jwt['ip'] != request.remote_addr:
             return None
+        # if jwt_token not in current_tokens:
+        #     return None
 
     return 0
 
@@ -55,6 +59,7 @@ def login():
                 jwt_token = jwt.encode({'user_id': user[0], 'ip': flask.request.remote_addr, 'noise': randString(35)}, 'secret', algorithm='HS256')
                 resp = flask.make_response(flask.redirect('/'))
                 resp.set_cookie('session_token', jwt_token)
+                current_tokens.append(jwt_token)
 
                 return resp
             else:
