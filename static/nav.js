@@ -6,7 +6,10 @@ if (Cookies.get("session_token") != undefined) {
   document.getElementById("logout").style.display = "none";
 }
 
-setTimeout(function () {
+setTimeout(loadNotificationLocation, 1500);
+window.onresize = loadNotificationLocation;
+
+function loadNotificationLocation(){
   var not_center = document.getElementById("not-center");
   var not_icon = document.getElementById("not-icon");
 
@@ -14,4 +17,4 @@ setTimeout(function () {
 
   not_center.style.left = rect.left - not_center.getBoundingClientRect().width + "px";
   not_center.style.top = rect.bottom + "px";
-}, 1500);
+}

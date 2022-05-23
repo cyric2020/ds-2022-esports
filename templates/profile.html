@@ -1,0 +1,140 @@
+{% extends 'layout.html' %}
+
+
+{%block head%}
+<title>Profile | {{ user[1] }}</title>
+{%endblock%}
+
+
+{%block content%} 
+<body>
+    <!-- <p>{{ user }}</p> -->
+    <div class="settings">
+        <h1>{{ user[1] }}</h1>
+        <div class="avatar">
+            <img src="{{ user[12] }}" alt="avatar">
+        </div>
+        <div class="info-p">
+            <!-- <p>Username: {{ user[1] }}</p>
+            <p>Student ID: {{ user[2] }}</p>
+            <p>Email: {{ user[7] }}</p>
+            <p>Real Name: {{ user[3] }}</p> -->
+            <!-- <p>Bio: {{ user[13] }}</p> -->
+        </div>
+
+        <div class="item">
+            <h4>Bio</h4>
+            <span class="bio">
+                {{ user[13] }}
+            </span>
+        </div>
+    </div>
+
+</body>
+
+<script src="{{ url_for('static', filename='settings.js') }}"></script>
+<style>
+input{
+    background-color: var(--dark) !important;
+}
+
+textarea{
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: white;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark) !important;
+    resize:none;
+}
+
+button{
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+.settings{
+    background-color: var(--light);
+    padding: 2rem;
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.25);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    display: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.buttons > button{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.outline{
+    background-color: transparent;
+    border: 4px solid var(--primary);
+    padding: 0.3rem;
+}
+
+.item{
+    width: 100%;
+}
+
+.item h4{
+    margin: 5px;
+    font-size: 18px;
+    line-height: 1;
+    text-align: left;
+}
+
+.bio{
+    display: block;
+    border: 4px solid var(--primary);
+    padding: 0.3rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+</style>
+{%endblock%}
