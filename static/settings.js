@@ -27,3 +27,30 @@ document.getElementById('close_change_password').addEventListener('click', funct
         document.getElementById('password_element').style.top = '120%';
     }, 300);
 });
+
+document.getElementById('save_password').addEventListener('click', function() {
+    var old_password = document.getElementById("old_password").value;
+    var new_password = document.getElementById("new_password").value;
+    var confirm_password = document.getElementById("confirm_password").value;
+
+    if(old_password == '' || new_password == '' || confirm_password == '') {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    if(new_password != confirm_password) {
+        alert('New password and confirm password do not match');
+        return;
+    }
+
+    $.post(document.location.origin + '/api/changePassword', {
+        old_password: old_password,
+        new_password: new_password
+    }, function(data) {
+        window.location.href = document.location.origin + '/login';
+        if(data.error == 'Invalid session') {
+        }else{
+            alert(data.message);
+        }
+    });
+});

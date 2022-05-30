@@ -51,7 +51,7 @@ def login():
         ldbc.close()
 
         if user is None:
-            return flask.render_template('login.html', error='Invalid email')
+            return flask.render_template('login.html', error='Invalid username')
         else:
             salt = user[5]
             pepper = user[6]
@@ -73,8 +73,8 @@ def register():
         username = flask.request.form['username']
         student_id = flask.request.form['student_id']
         real_name = flask.request.form['real_name']
-        salt = randString(10)
-        pepper = randString(10)
+        salt = randString(30)
+        pepper = randString(30)
         password = passutil.hash(flask.request.form['password'], salt, pepper)
         email = flask.request.form['email']
         time_created = datetime.datetime.now().timestamp()
@@ -154,5 +154,50 @@ def profile(id):
     ldbc.close()
 
     return flask.render_template('profile.html', user=user)
+
+@app.route('/api/changePassword', methods=['POST'])
+def changePassword():
+    if verify(flask.request) is None:
+        return flask.jsonify({'error': 'Invalid session'})
+
+    ldbc = sqlite3.connect(db)
+    dbC = ldbc.cursor()
+    token = flask.request.cookies.get('session_token')
+    jwt_token = jwt.decode(token, 'secret', algorithms=['HS256'])
+    dbC.execute('SELECT * FROM users WHERE id=' + str(jwt_token['user_id']) + ';')
+    user = dbC.fetchone()
+    ldbc.commit()
+    ldbc.close()
+
+    salt = user[5]
+    pepper = user[6]
+
+    if passutil.verify(flask.request.form.get('old_password'), salt, pepper, user[4]):
+        salt = randString(30)
+        pepper = randString(30)
+        password = passutil.hash(flask.request.form.get('new_password'), salt, pepper)
+
+        ldbc = sqlite3.connect(db)
+        dbC = ldbc.cursor()
+        dbC.execute('UPDATE users SET password=?, salt=?, pepper=? WHERE id=' + str(jwt_token['user_id']) + ';', (password, salt, pepper))
+        ldbc.commit()
+        ldbc.close()
+
+        return flask.jsonify({'success': 'Password changed'})
+    else:
+        return flask.jsonify({'error': 'Invalid password'})
+
+@app.route('/games', methods=['GET'])
+def games():
+    ldbc = sqlite3.connect(db)
+    dbC = ldbc.cursor()
+    token = flask.request.cookies.get('session_token')
+    jwt_token = jwt.decode(token, 'secret', algorithms=['HS256'])
+    dbC.execute('SELECT * FROM users WHERE id=' + str(jwt_token['user_id']) + ';')
+    user = dbC.fetchone()
+    ldbc.commit()
+    ldbc.close()
+
+    return flask.render_template('games.html', user=user)
 
 app.run(debug=True)

@@ -14,10 +14,17 @@
         <form action="/login" method="POST">
             <input type="text" name="username" id="username" placeholder="Username">
             <input type="password" name="password" id="password" placeholder="Password">
+            <p>{{ error }}</p>
             <input type="submit" value="Login">
             <a href="register" class="small-redirect">Don't have an account?</a>
         </form>
     </div>
 </body>
+
+<style>
+    p{
+        color: var(--red);
+    }
+</style>
 
 {% endblock %}
